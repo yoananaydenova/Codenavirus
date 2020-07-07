@@ -92,8 +92,8 @@ public class Codenavirus {
     }
 
     public static void main(String[] args) {
-        char[][] world = {{'#', '.', '#'},
-                {'.', '#', '#'},
+        char[][] world = {{'#', '#', '#'},
+                {'#', '#', '#'},
                 {'#', '#', '#'}};
         int[] firstInfected = {1, 1};
 
