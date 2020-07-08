@@ -7,8 +7,6 @@ public class Codenavirus {
         Map<int[], Integer> dataOfPeople = new TreeMap<>(Comparator.
                 <int[]>comparingInt(key -> key[0]).thenComparingInt(key -> key[1]));
 
-        int recoveredPeople = 0;
-        int infectedPeople = 0;
         int days = 0;
         // first infected
         infected.add(firstInfected);
@@ -28,6 +26,7 @@ public class Codenavirus {
                     world[infectedPerson[0]][infectedPerson[1]] = 'I';
                 }
             }
+
             infected.clear();
 
             // adding in list
@@ -43,16 +42,19 @@ public class Codenavirus {
                     dataOfPeople.put(person, dayOfDisease + 1);
                     if (dayOfDisease == 4) {
                         world[person[0]][person[1]] = 'R';
-                        recoveredPeople++;
                     }
                 }
+
             }
 
-            if (infected.size() != 0) {
-                infectedPeople = infected.size();
+            if (infected.size() == 1 && dataOfPeople.get(infected.get(0)) == 2) {
+                break;
             }
+
         }
 
+        int infectedPeople = countChar(world, 'I');
+        int recoveredPeople = countChar(world, 'R');
         int uninfectedPeople = countChar(world, '#');
         return new int[]{days, infectedPeople, recoveredPeople, uninfectedPeople};
     }
@@ -65,7 +67,6 @@ public class Codenavirus {
                     result++;
                 }
             }
-
         }
         return result;
     }
@@ -83,10 +84,8 @@ public class Codenavirus {
             next = new int[]{row - 1, col};
         } else if (isInBounds(row, col - 1, matrix) && matrix[row][col - 1] == '#') {
             next = new int[]{row, col - 1};
-
         } else if (isInBounds(row + 1, col, matrix) && matrix[row + 1][col] == '#') {
             next = new int[]{row + 1, col};
-
         }
         return next;
     }
@@ -97,6 +96,6 @@ public class Codenavirus {
                 {'#', '#', '#'}};
         int[] firstInfected = {1, 1};
 
-       int[] result = codenavirus(world, firstInfected);
+        int[] result = codenavirus(world, firstInfected);
     }
 }
